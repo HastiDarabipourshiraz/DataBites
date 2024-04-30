@@ -1,19 +1,23 @@
 // Page1.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import  { useEffect } from 'react';
-import image1 from './bg.jpg'
+import  { useEffect, useState } from 'react';
+import image1 from './bg.jpg';
+
+
 
 const Page1 = () => {
+  const [audio] = useState(new Audio('../test.mp3'));
   useEffect(() => {
     const handleKeyPress = (event) => {
-      if (event.key === 'Enter') {
+      if (event.key === '1') {
         // Assuming the button has an id or unique selector
         const button = document.getElementById('myButton');
         if (button) {
           button.click();
         }
       }
+      audio.play();
     };
 
     // Add event listener for key press

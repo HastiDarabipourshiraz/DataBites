@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const ImageGallery = () => {
   const [images1, setImages1] = useState([]);
   const [images2, setImages2] = useState([]);
-
+  const [audio] = useState(new Audio('../test.mp3'));
   useEffect(() => {
     const fetchImages = async () => {
       try {
@@ -22,13 +22,14 @@ const ImageGallery = () => {
   }, []);
   useEffect(() => {
     const handleKeyPress = (event) => {
-      if (event.key === 'Enter') {
+      if (event.key === '3') {
         // Assuming the button has an id or unique selector
         const button = document.getElementById('myButton');
         if (button) {
           button.click();
         }
       }
+      audio.play();
     };
 
     // Add event listener for key press

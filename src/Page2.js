@@ -1,8 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Webcam from 'react-webcam';
+import png from './3.png';
 
 const CameraComponent = () => {
+  const [audio] = useState(new Audio('../test.mp3'));
   const webcamRef = useRef(null);
   const navigate = useNavigate();
   const [isImageUploaded, setIsImageUploaded] = useState(false);
@@ -12,7 +14,8 @@ const CameraComponent = () => {
     if (imageSrc) {
       await sendImageToBackend(imageSrc);
     }
-    navigateToAnotherRoute(); // Always navigate after capturing
+    navigateToAnotherRoute();
+    audio.play(); // Always navigate after capturing
   };
 
   const sendImageToBackend = async (imageSrc) => {
@@ -35,24 +38,19 @@ const CameraComponent = () => {
       console.error('Error uploading image:', error);
     }
   };
-
   const navigateToAnotherRoute = () => {
     navigate('/Page3');
   };
     useEffect(() => {
     const handleKeyPress = (event) => {
-      if (event.key === 'Enter') {
-        // Assuming the button has an id or unique selector
+      if (event.key === '2') {
         const button = document.getElementById('myButton');
         if (button) {
           button.click();
         }
       }
     };
-
-    // Add event listener for key press
     document.addEventListener('keydown', handleKeyPress);
-
     // Clean up event listener when component unmounts
     return () => {
       document.removeEventListener('keydown', handleKeyPress);
@@ -78,6 +76,18 @@ const CameraComponent = () => {
           screenshotFormat="image/jpeg"
           width={640}
           height={480}
+        />
+        <img
+          src={png}
+          alt="Overlay Image"
+          style={{
+            position: 'absolute',
+            width: '60%', height: 'auto',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            pointerEvents: 'none' // Allow clicking through the image
+          }}
         />
       </div>
       <div>
